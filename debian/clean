@@ -1,0 +1,2 @@
+debian/examples.d/bundle*.js
+debian/examples.d/standalone*.js

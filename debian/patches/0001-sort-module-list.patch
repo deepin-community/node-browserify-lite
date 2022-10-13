@@ -1,0 +1,20 @@
+Subject: Ease reproductible build
+author: Rebecca N. Palmer" <rebecca_palmer@zoho.com>
+
+Sort module list in order to be reproductible
+
+Forwarded: https://github.com/andrewrk/browserify-lite/issues/12
+
+Index: node-browserify-lite/index.js
+===================================================================
+--- node-browserify-lite.orig/index.js
++++ node-browserify-lite/index.js
+@@ -79,6 +79,8 @@ function renderBundle(options, cb) {
+ 
+   function render(entrySourcePath, cb) {
+     var modules = Object.keys(sources);
++    // for reproductible build
++    modules.sort();
+     var aliases = {};
+     modules.forEach(function(canonicalSourcePath, index) {
+       aliases[canonicalSourcePath] = index;

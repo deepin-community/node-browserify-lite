@@ -1,0 +1,30 @@
+Source: node-browserify-lite
+Section: javascript
+Priority: optional
+Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
+Uploaders: Bastien Roucariès <rouca@debian.org>
+Build-Depends: debhelper-compat (= 13)
+ , node-pend
+ , node-source-map
+ , uglifyjs
+ , dh-sequence-nodejs
+ , rollup
+Standards-Version: 4.5.1
+Vcs-Browser: https://salsa.debian.org/js-team/node-browserify-lite
+Vcs-Git: https://salsa.debian.org/js-team/node-browserify-lite.git
+Homepage: https://github.com/andrewrk/browserify-lite
+Testsuite: autopkgtest-pkg-nodejs
+Rules-Requires-Root: no
+
+Package: node-browserify-lite
+Architecture: all
+Depends: ${misc:Depends}
+ , node-pend
+ , nodejs (>= 10)
+Provides: ${nodejs:Provides}, bundt (=${source:Version})
+Description: bundle client-side JavaScript using Node.js-style module syntax
+ browserify-lite scans a JavaScript file for require() statements and then
+ resolves the dependency, recursively scanning dependencies for require()
+ statements, resulting in a JavaScript bundle that can be sent to the browser.
+ .
+ Node.js is an event-based server-side JavaScript engine.

@@ -1,0 +1,44 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
+
+BROWSERIFY_LITE?=$(CURDIR)/cli.js
+EXAMPLES_DIR=debian/examples.d
+
+%.min.js: %.js
+	cd $(dir $@) && uglifyjs $(notdir $<) --verbose --source-map -o $(notdir $@)
+
+%.compress.js: %.js
+	cd $(dir $@) && uglifyjs $(notdir $<) -m --verbose --source-map -o $(notdir $@)
+
+$(EXAMPLES_DIR)/bundle.js: $(EXAMPLES_DIR)/main.js
+	NODE_PATH=. $(BROWSERIFY_LITE) $< --outfile $@
+
+$(EXAMPLES_DIR)/standalone.js: $(EXAMPLES_DIR)/main.js
+	NODE_PATH=. $(BROWSERIFY_LITE) $< --standalone 'example' --outfile $@
+
+
+EXAMPLES_DEST=$(EXAMPLES_DIR)/bundle.js $(EXAMPLES_DIR)/bundle.compress.js $(EXAMPLES_DIR)/bundle.min.js $(EXAMPLES_DIR)/standalone.js $(EXAMPLES_DIR)/standalone.min.js $(EXAMPLES_DIR)/standalone.compress.js
+
+examples: $(EXAMPLES_DEST)
+
+.PHONY: examples
+
+ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS) $(DEB_BUILD_PROFILES)))
+override_dh_auto_build: $(EXAMPLES_DEST)
+	dh_auto_build
+	rollup -i rewrite-imports/src/index.js -f cjs -o rewrite-imports/dist/index.js
+	rollup -i mk-dirs/src/sync.js -f cjs -o mk-dirs/sync.js
+	rollup -i mk-dirs/src/async.js -f cjs -o mk-dirs/async.js
+endif
+
+
+override_dh_fixperms:
+	dh_fixperms
+	chmod +x debian/node-browserify-lite/usr/share/nodejs/browserify-lite/cli.js
+	chmod +x debian/node-browserify-lite/usr/share/nodejs/bundt/index.js

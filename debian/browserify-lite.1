@@ -1,0 +1,39 @@
+.TH browserify-lite "1" "January 2019"
+.SH NAME 
+browserify-lite \- bundle javascript file
+.SH SYNOPSIS
+.B browserify-lite
+\fI\,./entry-file.js --outfile bundle.js\/\fR
+.SH DESCRIPTION
+Browserify-lite is a tool that allows developers to write Node.js-style modules that compile for use in the browser.
+
+This tool is a lite version a browserify:
+.RS
+.IP \(bu
+No builtin Node.js shims.
+.IP \(bu
+Naive AST tokenization for require instead of true AST parsing.
+All require statements are found regardless of if they are in an `if`
+statement or a function body that is never called.
+.IP \(bu
+Only supports a single entry file and the 
+\fB\-\-outfile\fR 
+parameter,
+nothing else.
+.IP \(bu
+No source maps.
+.IP \(bu
+Minimal dependencies.
+.RE
+.SH OPTIONS
+.TP
+\fB\-\-outfile\fR
+Write the browserify bundle to this file
+.TP
+\fB\-\-standalone\fR xyz
+Export as window.xyz
+.TP
+\fB\-\-help\fR
+Help screen
+.SH SEE ALSO
+browserify(1)

@@ -1,0 +1,2 @@
+# this is the source of browserified version
+source-contains-browserified-javascript index.js code fragment*

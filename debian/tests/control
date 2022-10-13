@@ -1,0 +1,3 @@
+Test-Command: make -f debian/rules examples
+Depends: @, nodejs (>= 6), @builddeps@, make
+Features: test-name=build-example

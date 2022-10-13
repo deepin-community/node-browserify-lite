@@ -1,0 +1,26 @@
+version=4
+opts=\
+dversionmangle=auto,\
+filenamemangle=s/.*\/v?([\d\.-]+)\.tar\.gz/node-browserify-lite-$1.tar.gz/ \
+ https://github.com/andrewrk/browserify-lite/tags .*/archive/.*/v?([\d\.]+).tar.gz group
+
+opts=\
+component=bundt,\
+ctype=nodejs,\
+dversionmangle=auto,\
+filenamemangle=s/.*\/v?([\d\.-]+)\.tar\.gz/node-bundt-$1.tar.gz/ \
+ https://github.com/lukeed/bundt/tags .*/archive.*/v?([\d\.]+).tar.gz checksum
+
+opts=\
+component=rewrite-imports,\
+ctype=nodejs,\
+dversionmangle=auto,\
+filenamemangle=s/.*\/v?([\d\.-]+)\.tar\.gz/node-rewrite-imports-$1.tar.gz/ \
+ https://github.com/lukeed/rewrite-imports/tags .*/archive.*/v?([\d\.]+).tar.gz checksum
+
+opts=\
+component=mk-dirs,\
+ctype=nodejs,\
+dversionmangle=auto,\
+filenamemangle=s/.*\/v?([\d\.-]+)\.tar\.gz/node-mk-dirs-$1.tar.gz/ \
+ https://github.com/lukeed/mk-dirs/tags .*/archive.*/v?([\d\.]+).tar.gz checksum
