@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+cd mk-dirs
+bundt
+node dist/index.js
+node sync/index.js
+cd ../rewrite-imports
+bundt
+node dist/index.js

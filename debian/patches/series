@@ -1,1 +1,3 @@
 0001-sort-module-list.patch
+fix-for-terser-5.patch
+fix-regexp.patch
