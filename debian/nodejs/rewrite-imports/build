@@ -1,0 +1,2 @@
+rollup -p @rollup/plugin-commonjs -f cjs -o dist/index.js src/index.js
+rollup -p @rollup/plugin-commonjs -f es -o dist/index.mjs src/index.js

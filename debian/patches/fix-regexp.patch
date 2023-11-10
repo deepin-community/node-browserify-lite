@@ -1,0 +1,27 @@
+Description: fix bad regex
+Author: Yadd <yadd@debian.org>
+Forwarded: no
+Last-Update: 2022-09-01
+
+--- a/bundt/index.js
++++ b/bundt/index.js
+@@ -128,7 +128,7 @@
+ 	const ESM = readFileSync(filepath, 'utf8');
+ 	const isDefault = /export default/.test(ESM);
+ 
+-	let CJS = rewrite(ESM).replace(/(^|;\s*|\r?\n+)export(?:(?:\s*{([^}]*)}(?:(?:;|\s|$)))|( default)|(?: (const|(?:async )?function|class|let|var))\s+([a-z$_][\w$]*))?(?=([^"'`]*["'`][^"'`]*["'`])*[^"'`]*$)/gi, (raw, ws, names, def, type, name) => {
++	let CJS = rewrite(ESM).replace(/(^|;\s*|\r?\n+)export(?:(?:\s*{([^}]*)}(?:(?:;|\s|$)))|( default)|(?: (const|(?:async )?function|class|let|var))\s+([a-z$_][\w$]*))?/gi, (raw, ws, names, def, type, name) => {
+ 		if (def) return ws + 'module.exports =';
+ 		if (type) return keys.push(name) && `${ws}${type} ${name}`;
+ 		names.split(',').forEach(name => keys.push(name.trim()));
+--- a/rewrite-imports/src/index.js
++++ b/rewrite-imports/src/index.js
+@@ -11,7 +11,7 @@
+ 
+ export function rewrite(str, fn) {
+ 	fn = fn || 'require';
+-	return str.replace(/(^|;\s*|\r?\n+)import\s*((?:\*\s*as)?\s*([a-z$_][\w$]*)?\s*,?\s*(?:{([\s\S]*?)})?)?\s*(from)?\s*(['"`][^'"`]+['"`])(?=;?)(?=([^"'`]*["'`][^"'`]*["'`])*[^"'`]*$)/gi, function (raw, ws, _, base, req, fro, dep) {
++	return str.replace(/(^|;\s*|\r?\n+)import\s*((?:\*\s*as)?\s*([a-z$_][\w$]*)?\s*,?\s*(?:{([\s\S]*?)})?)?\s*(from)?\s*(['"`][^'"`]+['"`])(?=;?)/gi, function (raw, ws, _, base, req, fro, dep) {
+ 		dep = fn + '(' + dep + ')';
+ 		return (ws||'') + (fro ? generate(req ? req.split(',') : [], dep, base) : dep);
+ 	});

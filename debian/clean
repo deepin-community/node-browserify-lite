@@ -1,2 +1,10 @@
+bundt.1
 debian/examples.d/bundle*.js
 debian/examples.d/standalone*.js
+debian/examples.d/*.js.map
+mk-dirs/async.js
+mk-dirs/dist/
+mk-dirs/index.d.ts
+mk-dirs/sync.js
+mk-dirs/sync/
+rewrite-imports/dist/

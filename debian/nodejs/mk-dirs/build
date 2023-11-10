@@ -1,0 +1,4 @@
+rollup -p @rollup/plugin-commonjs -f cjs -o dist/index.js src/async.js
+rollup -p @rollup/plugin-commonjs -f es -o dist/index.mjs src/async.js
+rollup -p @rollup/plugin-commonjs -f cjs -o sync/index.js src/sync.js
+rollup -p @rollup/plugin-commonjs -f es -o sync/index.mjs src/sync.js

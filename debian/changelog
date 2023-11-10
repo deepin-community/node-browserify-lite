@@ -1,3 +1,47 @@
+node-browserify-lite (0.5.1+~cs7.1.5-5) unstable; urgency=medium
+
+  * Team upload
+  * Fix autopkgtest
+
+ -- Yadd <yadd@debian.org>  Thu, 01 Sep 2022 17:47:26 +0200
+
+node-browserify-lite (0.5.1+~cs7.1.5-4) unstable; urgency=medium
+
+  * Team upload
+  * Build mk-dirs and rewrite-imports with rollup to avoid circular dependency
+  * Fix rewrite-imports regexp
+  * Add bundt test
+
+ -- Yadd <yadd@debian.org>  Thu, 01 Sep 2022 14:04:25 +0200
+
+node-browserify-lite (0.5.1+~cs7.1.5-3) unstable; urgency=medium
+
+  * Team upload
+
+  [ Pirate Praveen ]
+  * Update minimum version of dh-sequence-nodejs for pkgjs-pjson
+
+  [ Yadd ]
+  * Declare compliance with policy 4.6.1
+  * Add fix for terser >= 5 (Closes: #1018834)
+
+ -- Yadd <yadd@debian.org>  Wed, 31 Aug 2022 16:13:15 +0200
+
+node-browserify-lite (0.5.1+~cs7.1.5-2) unstable; urgency=medium
+
+  * Team upload
+
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since buster
+
+  [ Yadd ]
+  * Update standards version to 4.6.0, no changes needed.
+  * Fix filenamemangle
+  * Update nodejs dependency to nodejs:any
+  * Build bundt manpage with help2man
+
+ -- Yadd <yadd@debian.org>  Sat, 27 Nov 2021 21:26:04 +0100
+
 node-browserify-lite (0.5.1+~cs7.1.5-1) unstable; urgency=medium
 
   * Team upload

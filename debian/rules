@@ -11,10 +11,10 @@ BROWSERIFY_LITE?=$(CURDIR)/cli.js
 EXAMPLES_DIR=debian/examples.d
 
 %.min.js: %.js
-	cd $(dir $@) && uglifyjs $(notdir $<) --verbose --source-map -o $(notdir $@)
+	cd $(dir $@) && terser $(notdir $<) --source-map -o $(notdir $@)
 
 %.compress.js: %.js
-	cd $(dir $@) && uglifyjs $(notdir $<) -m --verbose --source-map -o $(notdir $@)
+	cd $(dir $@) && terser $(notdir $<) -m --source-map -o $(notdir $@)
 
 $(EXAMPLES_DIR)/bundle.js: $(EXAMPLES_DIR)/main.js
 	NODE_PATH=. $(BROWSERIFY_LITE) $< --outfile $@
@@ -31,10 +31,14 @@ examples: $(EXAMPLES_DEST)
 
 ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS) $(DEB_BUILD_PROFILES)))
 override_dh_auto_build: $(EXAMPLES_DEST)
-	dh_auto_build
+	dh_auto_build --buildsystem=nodejs
 	rollup -i rewrite-imports/src/index.js -f cjs -o rewrite-imports/dist/index.js
 	rollup -i mk-dirs/src/sync.js -f cjs -o mk-dirs/sync.js
 	rollup -i mk-dirs/src/async.js -f cjs -o mk-dirs/async.js
+	help2man -N --no-discard-stderr \
+		-n 'A simple bundler for your delicious modules' \
+		--version-string=`pkgjs-pjson bundt/ version` ./bundt/index.js \
+	 >bundt.1
 endif
 
 
